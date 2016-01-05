@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DoD Documents Upload App</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+      <div class="row">
+          <h1 class="text-center">Deliveries on Demand Uploader</h1>
+
+          <div class="col-md-8">
+              <form id="fileUpload" action="#" method="post" enctype="multipart/form-data">
+              <fieldset>
+
+                <input type="hidden" id="MAX_FILE_SIZE" value="300000">
+
+                <div>
+                  <label for="fieldselect">Files to upload:</label>
+                  <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
+                  <div id="filedrag">or drop files here</div>
+                </div>
+
+                <div class="submitbutton">
+                  <button class="btn btn-primary" type="submit">Upload Files</button>
+                </div>
+              </fieldset>
+            </form>
+            <div id="messages">
+                <p>Messages</p>
+            </div>
+            <hr>
+
+          </div>
+
+          <div class="col-md-4">
+             <div class="panel panel-primary">
+                 <div class="panel-heading">Title 1</div>
+                 <div class="panel-body">
+                     <ul class="list-group">
+                         <li class="list-group-item">List Item 1</li>
+                         <li class="list-group-item">List Item 2</li>
+                         <li class="list-group-item">LIst Item 3</li>
+                         <li class="list-group-item">List Item 4s</li>
+                     </ul>
+                     <input class="btn btn-primary" type="submit" value="submit">
+                 </div>
+             </div><!-- end of panel -->
+             <div class="panel panel-primary">
+                 <div class="panel-heading">Title 2</div>
+                 <div class="panel-body">
+                     <ul class="list-group">
+                         <li class="list-group-item">List Item 1</li>
+                         <li class="list-group-item">List Item 2</li>
+                         <li class="list-group-item">LIst Item 3</li>
+                         <li class="list-group-item">List Item 4s</li>
+                     </ul>
+                     <input class="btn btn-primary" type="submit" value="submit">
+                 </div>
+             </div><!-- end of panel -->
+             <div class="panel panel-primary">
+                 <div class="panel-heading">Title 3</div>
+                 <div class="panel-body">
+                     <ul class="list-group">
+                         <li class="list-group-item">List Item 1</li>
+                         <li class="list-group-item">List Item 2</li>
+                         <li class="list-group-item">LIst Item 3</li>
+                         <li class="list-group-item">List Item 4s</li>
+                     </ul>
+                     <input class="btn btn-primary" type="submit" value="submit">
+                 </div>
+             </div><!-- end of panel -->
+          </div>
+      </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="js/main.js"></script>
+</body>
+</html>
