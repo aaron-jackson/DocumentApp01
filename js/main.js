@@ -1,3 +1,7 @@
+var imported = document.createElement('script');
+imported.src = 'js/model/uploads.js';
+document.head.appendChild(imported);
+
 (function() {
 
 // getElementById
@@ -128,3 +132,4 @@ if (window.File && window.FileList && window.FileReader) {
 }
 
 })();
+
