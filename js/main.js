@@ -1,7 +1,3 @@
-var imported = document.createElement('script');
-imported.src = 'js/model/uploads.js';
-document.head.appendChild(imported);
-
 (function() {
 
 // getElementById
@@ -110,11 +106,13 @@ function Init() {
   submitbutton = $id("submitbutton");
 
   // file select
-  fileselect.addEventListener("change", FileSelectHandler, false);
+  if(fileselect) {
+    fileselect.addEventListener("change", FileSelectHandler, false);
+  }
 
   // XHR2 available?
   var xhr = new XMLHttpRequest();
-  if (xhr.upload) {
+  if (xhr.upload && filedrag == true) {
     // file drop
     filedrag.addEventListener("dragover", FileDragHover, false);
     filedrag.addEventListener("dragleave", FileDragHover, false);
@@ -132,4 +130,3 @@ if (window.File && window.FileList && window.FileReader) {
 }
 
 })();
-

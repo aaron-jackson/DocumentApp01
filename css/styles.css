@@ -9,3 +9,7 @@
     border-radius: 7px;
     cursor: default;
 }
+
+.ng-isolate-scope {
+    padding-left: 0;
+}
