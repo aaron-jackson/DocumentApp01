@@ -9,12 +9,12 @@
   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
   <script src="https://rawgithub.com/angular-ui/ui-sortable/master/src/sortable.js"></script>
-  <script src="js/model/uploads.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/model/uploads.js"></script>
 
 
 </head>
-<body ng-app="uploadSortable">
+<body ng-app="uploadapp">
     <div class="container">
       <div class="row">
           <h1 class="text-center">Deliveries on Demand Uploader</h1>
@@ -44,7 +44,7 @@
           </div>
 
           <div class="col-md-4">
-             <div ng-controller="uploadSortableController" class="panel panel-primary">
+             <div ng-controller="uploadSortableCtrl" class="panel panel-primary">
                  <div class="panel-heading">Title 1</div>
                  <div class="panel-body">
                      <ul ui-sortable="sortableOptions" ng-model="list">

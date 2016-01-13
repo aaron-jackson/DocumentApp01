@@ -1,132 +1,37 @@
-(function() {
-
-// getElementById
-function $id(id) {
-  return document.getElementById(id);
-}
-
-// output information
-function Output(msg) {
-  var m = $id("messages");
-  m.innerHTML = msg + m.innerHTML;
-}
-
-// file drag hover
-function FileDragHover(e) {
-  e.stopPropagation();
-  e.preventDefault();
-  e.target.className = (e.type == "dragover" ? "hover" : "");
-}
-
-// file selection
-function FileSelectHandler(e) {
-  // cancel event and hover styling
-  FileDragHover(e);
-
-  // fetch FileList object
-  var files = e.target.files || e.dataTransfer.files;
-
-  // process all File objects
-  for (var i = 0, f; f = files[i]; i++) {
-    ParseFile(f);
-    UploadFile(f)
-  }
-}
-
-function ParseFile(file) {
-  Output(
-    "<p>File Information: <strong>" + file.name +
-    "</strong> type: <strong>" + file.type +
-    "</strong> size: <strong>" + file.size +
-    "</p>"
-  );
-
-  // display text
-  if(file.type.indexOf("text") == 0) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      Output(
-        "<p><strong>" + file.name + ":</strong></p><pre>" + e.target.result.replace(/</g, "&lt;").replace(/>/g, "$gt;") +
-        "</pre>"
-      );
+function uploadFiles(files) {
+    var formData = new FormData();
+    for (var i = 0; i < files.length; i++) {
+        formData.append('file', files[i]);
     }
-    reader.readAsText(file);
-  }
+    formData.append(JSON.stringify);
 
-  // display an image
-  if(file.type.indexOf("image") == 0) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      Output(
-        "<p><strong>" + file.name + ":</strong><br />" +
-        '<img src="' + e.target.result + '" /></p>'
-      );
-    }
-    reader.readAsDataURL(file);
-  }
-}
-
-  // upload files
-  function UploadFile(file) {
     var xhr = new XMLHttpRequest();
-    if(xhr.upload && file.size <= $id("MAX_FILE_SIZE").value) {
-
-      // create progress bar
-      var o = $id("progress");
-      var progress = o.appendChild(document.createElement("p"));
-      progress.appendChild(document.createTextNode("upload " + file.name));
-
-      // progress bar
-      xhr.upload.addEventListener("progress", function(e) {
-        var pc = parseInt(100 - (e.loaded / e.total *  100));
-        progress.style.backgroundPosition = pc + "% 0";
-      }, false);
-
-      // file received/failed
-      xhr.onreadystatechange = function(e) {
-        if(xhr.readyState == 4) {
-          progress.className = (xhr.status == 200 ? "success" : "failure");
+    xhr.timeout = 10000;
+    xhr.open('POST', 'imgs/uploads');
+    xhr.onload = function() {
+        if(xhr.status === 200) {
+            $scope.alerts.push({type: 'sucess', msg: 'File uploaded!'});
+        } else {
+            $scope.alerts.push({type: 'danger', msg: 'Error! Something went wrong with the file uploader.'});
         }
-      };
+    };
+    xhr.upload.onprogress = function (event) {
+        if (event.lengthComputable) {
+            var complete = (event.loaded / event.total * 100 | 0);
+        }
+    };
+    xhr.send(formData);
 
-      // start upload
-      xhr.open("POST", $id("upload").action, true);
-      xhr.setRequestHeader("X-FILENAME", file.name);
-      xhr.send(file);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var response = JSON.parse(xhr.responseText)
+            if (response.error != '') {
+                $scope.alerts.push({type: 'danger', msg: 'Error! ' + ((typeof reponse.error.code !== 'undefined') ? reponse.error.code : response.error)});
+            } else {
+                $scope.$apply(function () {
+                    $scope.file = response.result;
+                });
+            }
+        }
     }
-
-  }
-
-
-
-// initialize
-function Init() {
-  var fileselect = $id("fileselect"),
-  filedrag = $id("filedrag"),
-  submitbutton = $id("submitbutton");
-
-  // file select
-  if(fileselect) {
-    fileselect.addEventListener("change", FileSelectHandler, false);
-  }
-
-  // XHR2 available?
-  var xhr = new XMLHttpRequest();
-  if (xhr.upload && filedrag == true) {
-    // file drop
-    filedrag.addEventListener("dragover", FileDragHover, false);
-    filedrag.addEventListener("dragleave", FileDragHover, false);
-    filedrag.addEventListener("drop", FileSelectHandler, false);
-    filedrag.style.display = "block";
-  }
-
-  // remove submit button
-  //submitbutton.style.display = "none";
 }
-
-// call init file
-if (window.File && window.FileList && window.FileReader) {
-  Init();
-}
-
-})();
