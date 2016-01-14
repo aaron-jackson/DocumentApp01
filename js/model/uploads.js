@@ -1,4 +1,4 @@
-var uploadapp = angular.module('uploadapp', ['ui.sortable', 'ngFileUpload']);
+var uploadapp = angular.module('uploadapp', ['ui.sortable']);
 
 uploadapp.controller('uploadSortableCtrl', function($scope) {
     var fileList = [];
@@ -60,7 +60,41 @@ uploadapp.controller('uploadStortableCtrlTwo', function($scope) {
     };
 });
 
+uploadapp.controller('uploadStortableCtrlThree', function($scope) {
+    var fileList = [];
+
+    for(var i = 1; i <= 3; i++) {
+        fileList.push({
+            text: 'File ' + i,
+            value: i
+        });
+    }
+
+    $scope.list = fileList;
+
+    $scope.sortingLog = [];
+
+    $scope.sortableOptions = {
+        update: function(e, ui) {
+            var logEntry = fileList.map(function(i) {
+                return i.value;
+            }).join(', ');
+            $scope.sortingLog.push('Stop: ', + logEntry);
+        },
+        stop: function(e, ui) {
+            var logEntry = fileList.map(function(i) {
+                return i.value;
+            }).join(', ');
+            $scope.sortingLog.push('Stop: ' + logEntry);
+        }
+    };
+});
+
 uploadapp.controller('uploadFileCtrl', function($scope) {
+    $("filedrag").on("dragover", function(e) {
+        $("filedrag").css('background-color', '#51a351');
+        return false;
+    });
     function uploadFiles(files) {
     var formData = new FormData();
     for (var i = 0; i < files.length; i++) {

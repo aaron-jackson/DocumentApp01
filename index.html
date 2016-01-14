@@ -19,7 +19,7 @@
       <div class="row">
           <h1 class="text-center">Deliveries on Demand Uploader</h1>
 
-          <div class="col-md-8">
+          <div ng-controller="uploadFileCtrl" class="col-md-8">
               <form id="fileUpload" action="#" method="post" enctype="multipart/form-data">
               <fieldset>
 
@@ -27,7 +27,7 @@
 
                 <div>
                   <label for="fieldselect">Files to upload:</label>
-                  <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
+                  <input type="file" id="file" name="file" multiple="multiple" />
                   <div id="filedrag">or drop files here</div>
                 </div>
 
@@ -53,26 +53,20 @@
                      <input class="btn btn-primary" type="submit" value="submit">
                  </div>
              </div><!-- end of panel -->
-             <div class="panel panel-primary">
+             <div ng-controller="uploadStortableCtrlTwo" class="panel panel-primary">
                  <div class="panel-heading">Title 2</div>
                  <div class="panel-body">
-                     <ul class="list-group">
-                         <li class="list-group-item">List Item 1</li>
-                         <li class="list-group-item">List Item 2</li>
-                         <li class="list-group-item">LIst Item 3</li>
-                         <li class="list-group-item">List Item 4</li>
+                     <ul ui-sortable="sortableOptions" ng-model="list">
+                         <li ng-repeat="item in list" class="list-group-item">{{item.text}}</li>
                      </ul>
                      <input class="btn btn-primary" type="submit" value="submit">
                  </div>
              </div><!-- end of panel -->
-             <div class="panel panel-primary">
+             <div ng-controller="uploadStortableCtrlThree" class="panel panel-primary">
                  <div class="panel-heading">Title 3</div>
                  <div class="panel-body">
-                     <ul class="list-group">
-                         <li class="list-group-item">List Item 1</li>
-                         <li class="list-group-item">List Item 2</li>
-                         <li class="list-group-item">LIst Item 3</li>
-                         <li class="list-group-item">List Item 4</li>
+                     <ul ui-sortable="sortableOptions" ng-model="list">
+                         <li ng-repeat="item in list" class="list-group-item">{{item.text}}</li>
                      </ul>
                      <input class="btn btn-primary" type="submit" value="submit">
                  </div>
