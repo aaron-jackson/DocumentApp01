@@ -13,3 +13,7 @@
 .ng-isolate-scope {
     padding-left: 0;
 }
+
+#messages {
+    padding-top: 30px;
+}
